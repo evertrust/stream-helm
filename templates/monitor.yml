@@ -1,0 +1,19 @@
+{{ if .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "common.names.fullname" . }}
+  labels: {{- include "horizon.labels.standard" . | nindent 4 }}
+    {{- if .Values.commonLabels }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
+  {{- end }}
+spec:
+  endpoints:
+    - port: kamon
+      path: /metrics
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+{{ end }}

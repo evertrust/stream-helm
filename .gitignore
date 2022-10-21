@@ -1,0 +1,5 @@
+/.idea
+/charts
+values.*.yml
+stream-*.tgz
+.DS_Store

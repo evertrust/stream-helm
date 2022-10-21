@@ -1,0 +1,17 @@
+apiVersion: v2
+name: stream
+description: EverTrust Stream Helm chart
+type: application
+version: 0.0.1
+appVersion: "1.0.3"
+home: https://evertrust.fr
+sources:
+  - https://gitlab.com/evertrust/horizon-helm
+dependencies:
+  - name: common
+    version: 1.10.4
+    repository: https://charts.bitnami.com/bitnami
+  - name: mongodb
+    version: 10.30.12
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
