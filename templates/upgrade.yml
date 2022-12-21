@@ -1,4 +1,4 @@
-{{- if eq (include "horizon.shouldRunUpgrade" .) "true" }}
+{{- if eq (include "stream.shouldRunUpgrade" .) "true" }}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -7,20 +7,23 @@ spec:
   template:
     spec:
       containers:
-        - name: horizon-upgrade
+        - name: stream-upgrade
           image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrade.image "global" .Values) }}
           imagePullPolicy: {{ .Values.upgrade.image.pullPolicy | default "IfNotPresent" | quote }}
           {{- include "common.images.renderPullSecrets" (dict "images" (list .Values.upgrade.image) "context" $) | nindent 5 }}
           args: [
               "-y",
               "-m", "$(MONGODB_URI)",
-              "-s", "{{ coalesce .Values.upgrade.from (include "horizon.installedVersion" .) }}",
-              "-t", "{{ coalesce .Values.upgrade.to .Chart.AppVersion }}"
+              "-s", "{{ include "stream.installedVersion" . }}",
+              "-t", "{{ .Chart.AppVersion }}"
           ]
           resources: {{- toYaml .Values.upgrade.resources | nindent 12 }}
           env:
             - name: MONGODB_URI
-              {{- include "horizon.mongodbUri" (dict "context" .) | nindent 14 }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "common.secrets.name" (dict "existingSecret" .Values.externalDatabase.secretName "context" $) }}
+                  key: {{ include "common.secrets.key" (dict "existingSecret" .Values.externalDatabase.secretKey "key" "mongoUri") }}
       restartPolicy: Never
   backoffLimit: 0
 {{- end }}

@@ -3,20 +3,17 @@ apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: {{ include "common.names.fullname" . }}
-  labels: {{- include "horizon.labels.standard" . | nindent 4 }}
+  labels: {{- include "stream.labels.standard" . | nindent 4 }}
   {{- if .Values.commonLabels }}
   {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
   {{- end }}
-  {{- if or .Values.ingress.annotations .Values.commonAnnotations .Values.ingress.type }}
+  {{- if or .Values.ingress.annotations .Values.commonAnnotations }}
   annotations:
     {{- if .Values.ingress.annotations }}
     {{- include "common.tplvalues.render" (dict "value" .Values.ingress.annotations "context" $ ) | nindent 4 }}
     {{- end }}
     {{- if .Values.commonAnnotations }}
     {{- include "common.tplvalues.render" (dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
-    {{- end }}
-    {{- if .Values.ingress.type }}
-    {{- include "horizon.ingressConfigurationAnnotations" (dict "context" $) | nindent 4 }}
     {{- end }}
   {{- end }}
 spec:

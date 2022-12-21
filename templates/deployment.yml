@@ -2,7 +2,7 @@ apiVersion: {{ include "common.capabilities.deployment.apiVersion" . }}
 kind: Deployment
 metadata:
   name: {{ template "common.names.fullname" . }}
-  labels: {{- include "horizon.labels.standard" . | nindent 4 }}
+  labels: {{- include "stream.labels.standard" . | nindent 4 }}
   {{- if .Values.commonLabels }}
   {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" $ ) | nindent 4 }}
   {{- end }}
@@ -15,7 +15,7 @@ spec:
   strategy: {{- include "common.tplvalues.render" (dict "value" .Values.updateStrategy "context" $ ) | nindent 4 }}
   template:
     metadata:
-      labels: {{- include "horizon.labels.standard" . | nindent 8 }}
+      labels: {{- include "stream.labels.standard" . | nindent 8 }}
         {{- if .Values.podLabels }}
         {{- include "common.tplvalues.render" (dict "value" .Values.podLabels "context" $) | nindent 8 }}
         {{- end }}
@@ -49,8 +49,8 @@ spec:
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       {{- end }}
       containers:
-        - name: horizon
-          image: {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values) }}
+        - name: stream
+          image: {{ include "common.images.image" ( dict "imageRoot" .Values.image "global" $) }}
           imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" | quote }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -99,29 +99,35 @@ spec:
                   apiVersion: v1
                   fieldPath: status.podIP
             - name: MONGODB_URI
-            {{- include "horizon.mongodbUri" (dict "context" .) | nindent 14 }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "common.secrets.name" (dict "existingSecret" .Values.externalDatabase.secretName "context" $) }}
+                  key: {{ include "common.secrets.key" (dict "existingSecret" .Values.externalDatabase.secretKey "key" "mongoUri") }}
             - name: APPLICATION_SECRET
-            {{- include "horizon.appSecret" (dict "context" .) | nindent 14 }}
-            {{- if .Values.mailer.password }}
-            - name: MAILER_PASSWORD {{- include "common.tplvalues.render" (dict "value" .Values.mailer.password "context" $) | nindent 14 }}
-            {{- end }}
-            {{- if .Values.events.chainsign }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "common.secrets.name" (dict "existingSecret" .Values.appSecret.secretName "context" $) }}
+                  key: {{ include "common.secrets.key" (dict "existingSecret" .Values.appSecret.secretKey "key" "appSecret") }}
+            - name: AKKA_ACTOR_SYSTEM
+              value: {{ .Release.Name }}
             - name: EVENT_SEAL_SECRET
-            {{- include "horizon.eventSealSecret" (dict "context" .) | nindent 14 }}
-            {{- end }}
-            {{- range .Values.vaults }}
-            {{- if hasKey . "master_password" }}
-            - name: {{ printf "%s_master_password" .name | upper }}
-            {{- include "horizon.rendersecret" (dict "value" .master_password "key" (printf "%sVaultMasterPassword" .name) "context" $) | nindent 14 }}
-            {{- end }}
-            {{- end }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "common.secrets.name" (dict "existingSecret" .Values.events.secretName "context" $) }}
+                  key: {{ include "common.secrets.key" (dict "existingSecret" .Values.events.secretKey "key" "eventSealSecret") }}
+            - name: LICENSE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "You must specify a license secret" .Values.license.secretName }}
+                  key: {{ required "You must specify a license secret" .Values.license.secretKey }}
+            - name: KEYSET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "You must specify a keyset secret" .Values.keyset.secretName }}
+                  key: {{ required "You must specify a keyset secret" .Values.keyset.secretKey }}
           volumeMounts:
             - name: {{ .Release.Name }}-etc
-              mountPath: /stream/etc
-            - name: {{ .Release.Name }}-license
-              mountPath: /stream/license
-            - name: {{ .Release.Name }}-keyset
-              mountPath: /stream/keyset
+              mountPath: /opt/stream/etc
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
@@ -141,18 +147,6 @@ spec:
         - name: {{ .Release.Name }}-etc
           configMap:
             name: {{ printf "%s-config" (include "common.names.fullname" $) }}
-        - name: {{ .Release.Name }}-license
-          secret:
-            secretName: {{ required "You must specify a license secret" .Values.license.secretName }}
-            items:
-              - key: {{ required "You must specify a license secret" .Values.license.secretKey }}
-                path: stream.lic
-        - name: {{ .Release.Name }}-keyset
-          secret:
-            secretName: {{ required "You must specify a keyset secret" .Values.keyset.secretName }}
-            items:
-              - key: {{ required "You must specify a keyset secret" .Values.keyset.secretKey }}
-                path: keyset.json
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}

@@ -2,6 +2,17 @@ Thank you for {{ ternary "installing" "upgrading" .Release.IsInstall }} {{ .Char
 
 Your release is named {{ .Release.Name }}.
 
+{{- if .Release.IsInstall }}
+An administrator account has been generated for you:
+
+  Username: administrator
+  Password: <stored in /stream/adminPassword>
+
+To get the admin password value, run:
+
+  kubectl exec $(kubectl get pods -n {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "common.names.name" . }}" --sort-by={.status.podIP} -o jsonpath="{.items[0].metadata.name}") -n stream -- /bin/sh -c "cat /stream/adminPassword"
+{{ end }}
+
 To learn more about the release, try:
 
   $ helm status {{ .Release.Name }}
@@ -13,6 +24,6 @@ An ingress has been deployed and {{ .Chart.Name }} will be shortly available
 at {{ .Values.ingress.tls | ternary "https" "http" }}://{{ .Values.ingress.hostname }}
 {{ end }}
 
-{{- if eq (include "horizon.shouldRunUpgrade" .) "true" }}
+{{- if eq (include "stream.shouldRunUpgrade" .) "true" }}
 An upgrade job has been created. Check that it ran successfully before proceeding.
 {{ end }}
