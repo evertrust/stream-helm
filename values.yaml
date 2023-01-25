@@ -430,9 +430,18 @@ mongodb:
   ## @param mongodb.architecture MongoDB architecture (`standalone` or `replicaset`)
   ##
   architecture: standalone
+  ## Bitnami MongoDB(&reg;) image
+  ## ref: https://hub.docker.com/r/bitnami/mongodb/tags/
+  ## @param image.tag MongoDB(&reg;) image tag (immutable tags are recommended)
+  image:
+    tag: 5.0.14-debian-11-r9
   ## MongoDB Authentication parameters
   ##
   auth:
+    ## @param auth.rootPassword MongoDB(&reg;) root password
+    ## ref: https://github.com/bitnami/containers/tree/main/bitnami/mongodb#setting-the-root-user-and-password-on-first-run
+    ##
+    rootPassword: ""
     ## @param mongodb.auth.username MongoDB custom user
     ## ref: https://github.com/bitnami/bitnami-docker-mongodb/blob/master/README.md#creating-a-user-and-database-on-first-run
     ##

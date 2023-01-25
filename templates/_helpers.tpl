@@ -22,13 +22,13 @@ Prints all Stream allowed hosts.
 */}}
 {{- define "stream.allowedHosts" }}
     {{- if .Values.ingress.enabled -}}
-        {{- printf "\"%s\"," .Values.ingress.hostname -}}
+        {{- printf "'%s'," .Values.ingress.hostname -}}
     {{- end -}}
     {{- range .Values.ingress.extraHosts -}}
-        {{- printf "\"%s\"," .name -}}
+        {{- printf "'%s'," .name -}}
     {{- end -}}
     {{- range .Values.allowedHosts -}}
-        {{- printf "\"%s\"," . -}}
+        {{- printf "'%s'," . -}}
     {{- end -}}
 {{- end }}
 
