@@ -429,6 +429,14 @@ keyset:
 ## @param logFormat Format in which logs will be outputted. Can be set either to "console" or "json" for structured logging.
 logFormat: console
 
+## @param tls.enabled Whether to use the HTTPS port by default on ingresses and other services
+## @param tls.secretName Existing secret name where a PKCS12 certificate is stored
+## @param tls.secretKey Existing secret key where the PKCS12 certificate is stored
+tls:
+  enabled: false
+  secretName: ""
+  secretKey: ""
+
 ## @param leases.enabled Whether leases should be used when launching multiple replicas of Stream pods. This requires the leases.akka.io CRD to be installed.
 leases:
   enabled: true

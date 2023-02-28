@@ -135,12 +135,19 @@ spec:
           volumeMounts:
             - name: {{ .Release.Name }}-etc
               mountPath: /opt/stream/etc
+            {{- if .Values.tls.secretName }}
+            - name: tls-cert
+              mountPath: /opt/stream/ssl/cert.p12
+              subPath: {{ .Values.tls.secretKey }}
+            {{- end }}
             {{- if .Values.extraVolumeMounts }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
             {{- end }}
           ports:
             - name: http
               containerPort: 9000
+            - name: https
+              containerPort: 9443
             - name: management
               containerPort: 8558
             - name: artery
@@ -154,6 +161,11 @@ spec:
         - name: {{ .Release.Name }}-etc
           configMap:
             name: {{ printf "%s-config" (include "common.names.fullname" $) }}
+        {{- if .Values.tls.secretName }}
+        - name: tls-cert
+          secret:
+            secretName: {{ .Values.tls.secretName }}
+        {{- end }}
         {{- if .Values.extraVolumes }}
         {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
         {{- end }}
