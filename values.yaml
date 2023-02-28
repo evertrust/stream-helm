@@ -420,9 +420,14 @@ events:
   secretName: ""
   secretKey: ""
 
+## @param keyset.secretName Existing secret name where the Tink keyset is stored
+## @param keyset.secretKey Existing secret key where the Tink keyset is stored
 keyset:
   secretName: ""
   secretKey: ""
+
+## @param logFormat Format in which logs will be outputted. Can be set either to "console" or "json" for structured logging.
+logFormat: console
 
 ## @param leases.enabled Whether leases should be used when launching multiple replicas of Stream pods. This requires the leases.akka.io CRD to be installed.
 leases:

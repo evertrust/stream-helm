@@ -130,6 +130,8 @@ spec:
                 secretKeyRef:
                   name: {{ required "You must specify a keyset secret" .Values.keyset.secretName }}
                   key: {{ required "You must specify a keyset secret" .Values.keyset.secretKey }}
+            - name: LOGGING_APPENDER
+              value: {{ .Values.logFormat }}
           volumeMounts:
             - name: {{ .Release.Name }}-etc
               mountPath: /opt/stream/etc
