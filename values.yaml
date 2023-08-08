@@ -106,6 +106,8 @@ extraVolumeMounts: []
 ##         containerPort: 1234
 ##
 sidecars: []
+## @param initContainers Add additional init containers to the Stream pod
+initContainers: []
 ## @param lifecycleHooks Add lifecycle hooks to the Stream deployment
 ##
 lifecycleHooks: {}
