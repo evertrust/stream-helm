@@ -2,7 +2,7 @@ apiVersion: v2
 name: stream
 description: EverTrust Stream Helm chart
 type: application
-version: 0.1.8
+version: 0.1.9
 appVersion: "1.2.1"
 home: https://evertrust.fr
 sources:
