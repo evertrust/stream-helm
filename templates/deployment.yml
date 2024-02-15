@@ -136,6 +136,10 @@ spec:
                   key: {{ required "You must specify a keyset secret" .Values.keyset.secretKey }}
             - name: LOGGING_APPENDER
               value: {{ .Values.logFormat }}
+            {{- if .Values.clientCertificateHeader }}
+            - name: HTTP_CERTIFICATE_HEADER
+              value: {{ .Values.clientCertificateHeader }}
+            {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-etc
               mountPath: /opt/stream/etc
