@@ -21,15 +21,20 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 Prints all Stream allowed hosts.
 */}}
 {{- define "stream.allowedHosts" }}
-    {{- if .Values.ingress.enabled -}}
-        {{- printf "'%s'," .Values.ingress.hostname -}}
-    {{- end -}}
-    {{- range .Values.ingress.extraHosts -}}
-        {{- printf "'%s'," .name -}}
-    {{- end -}}
-    {{- range .Values.allowedHosts -}}
-        {{- printf "'%s'," . -}}
-    {{- end -}}
+{{- $allowedHosts := list }}
+{{- if .Values.ingress.enabled -}}
+  {{- $allowedHosts = append $allowedHosts .Values.ingress.hostname }}
+  {{- range .Values.ingress.extraHosts }}
+  {{- $allowedHosts = append $allowedHosts .name }}
+  {{- end }}
+  {{- range .Values.ingress.extraRules }}
+  {{- if .host }}
+  {{- $allowedHosts = append $allowedHosts .host }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- $allowedHosts = concat $allowedHosts .Values.allowedHosts }}
+{{- toJson $allowedHosts}}
 {{- end }}
 
 {{/*
