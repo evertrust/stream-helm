@@ -55,7 +55,7 @@ commonAnnotations: {}
 image:
   registry: registry.evertrust.io
   repository: stream
-  tag: 1.2.1
+  tag: 2.0.0
   pullPolicy: IfNotPresent
   pullSecrets: []
 
@@ -530,7 +530,7 @@ upgrade:
   image:
     registry: registry.evertrust.io
     repository: stream-upgrade
-    tag: 1.2.1
+    tag: 2.0.0
     pullPolicy: IfNotPresent
     pullSecrets: []
   ## horizon-upgrade container resource requests and limits
