@@ -4,9 +4,10 @@ description: EverTrust Stream Helm chart
 type: application
 version: 0.2.0
 appVersion: "2.0.0"
-home: https://evertrust.fr
+icon: https://evertrust.io/media/logo-stream-blue.png
+home: https://evertrust.io
 sources:
-  - https://gitlab.com/evertrust/stream-helm
+  - https://github.com/evertrust/stream-helm
 dependencies:
   - name: common
     version: 2.2.2
