@@ -121,6 +121,10 @@ spec:
             - name: HOSTS_ALLOWED.{{ $key }}
               value: {{ $value }}
             {{- end }}
+            {{- range $key, $value := (.Values.trustedProxies) }}
+            - name: TRUSTED_PROXIES.{{ $key }}
+              value: {{ $value }}
+            {{- end }}
             - name: EVENT_SEAL_SECRET
               valueFrom:
                 secretKeyRef:
