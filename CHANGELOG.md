@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/evertrust/stream-helm/compare/v1.0.0...v1.0.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* Fixed application version ([2b9fff5](https://github.com/evertrust/stream-helm/commit/2b9fff5c263627fdfb8f2efe539bc67790fd4811))
+* Removed duplicate environment variable ([ec23400](https://github.com/evertrust/stream-helm/commit/ec23400bd808256fe8054f74170aac8411e3c48b))
+
 ## [1.0.0](https://github.com/evertrust/stream-helm/compare/v0.2.2...v1.0.0) (2024-08-02)
 
 
