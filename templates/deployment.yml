@@ -119,8 +119,6 @@ spec:
                 secretKeyRef:
                   name: {{ include "common.secrets.name" (dict "existingSecret" .Values.appSecret.secretName "context" $) }}
                   key: {{ include "common.secrets.key" (dict "existingSecret" .Values.appSecret.secretKey "key" "appSecret") }}
-            - name: AKKA_ACTOR_SYSTEM
-              value: {{ .Release.Name }}
             {{- range $key, $value := (include "stream.allowedHosts" $ | fromJsonArray) }}
             - name: HOSTS_ALLOWED.{{ $key }}
               value: {{ $value }}
