@@ -553,3 +553,15 @@ upgrade:
 externalDatabase:
   secretName: ""
   secretKey: ""
+
+## Create a dynamic manifests via values:
+extraObjects: []
+  ## - apiVersion: "kubernetes-client.io/v1"
+  ##   kind: ExternalSecret
+  ##   metadata:
+  ##     name: stream-secrets
+  ##   spec:
+  ##     backendType: gcpSecretsManager
+  ##     data:
+  ##       - key: stream-secret-key
+  ##         name: stream-secret-name
