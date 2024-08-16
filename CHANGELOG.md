@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/evertrust/stream-helm/compare/v1.0.1...v1.0.2) (2024-08-16)
+
+
+### Bug Fixes
+
+* upgrade pod pullSecrets indentation ([149bd72](https://github.com/evertrust/stream-helm/commit/149bd721b4a1b9dcd42bbf88ed7dc0089ad26e5c))
+
 ## [1.0.1](https://github.com/evertrust/stream-helm/compare/v1.0.0...v1.0.1) (2024-08-06)
 
 
