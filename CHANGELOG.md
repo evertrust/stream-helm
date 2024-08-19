@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/evertrust/stream-helm/compare/v1.0.2...v1.1.0) (2024-08-19)
+
+
+### Features
+
+* **extraObjects:** support creation of extra manifests via values ([#4](https://github.com/evertrust/stream-helm/issues/4)) ([cefff69](https://github.com/evertrust/stream-helm/commit/cefff697d2db6410399279f6088f9c224a82f6aa))
+
 ## [1.0.2](https://github.com/evertrust/stream-helm/compare/v1.0.1...v1.0.2) (2024-08-16)
 
 
