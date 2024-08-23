@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/evertrust/stream-helm/compare/v1.1.0...v1.1.1) (2024-08-23)
+
+
+### Bug Fixes
+
+* bump stream to 2.0.2 ([#7](https://github.com/evertrust/stream-helm/issues/7)) ([ab2b554](https://github.com/evertrust/stream-helm/commit/ab2b5549241aec3c7e605394823d82ba5da5f283))
+
 ## [1.1.0](https://github.com/evertrust/stream-helm/compare/v1.0.2...v1.1.0) (2024-08-19)
 
 
