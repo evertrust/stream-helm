@@ -6,6 +6,7 @@ metadata:
 spec:
   template:
     spec:
+      {{- include "common.images.renderPullSecrets" (dict "images" (list .Values.upgrade.image) "context" $) | nindent 6 }}
       containers:
         - name: stream-upgrade
           image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrade.image "global" .Values.global) }}
