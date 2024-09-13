@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/evertrust/stream-helm/compare/v1.1.5...v1.1.6) (2024-09-13)
+
+
+### Bug Fixes
+
+* upgrade job - pullSecrets indentation ([#17](https://github.com/evertrust/stream-helm/issues/17)) ([18079bc](https://github.com/evertrust/stream-helm/commit/18079bcf8fd2b36672a88b1a7987f2b3a0e0a8bb))
+
 ## [1.1.5](https://github.com/evertrust/stream-helm/compare/v1.1.4...v1.1.5) (2024-09-06)
 
 
