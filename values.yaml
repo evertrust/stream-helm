@@ -554,6 +554,32 @@ externalDatabase:
   secretName: ""
   secretKey: ""
 
+## Configuration for the Stream mailer.
+## You should configure this if you want your Stream instance to be able
+## to send emails.
+## You should fetch credentials from the environment if they are required.
+## @param mailer.host SMTP host
+## @param mailer.port SMTP host port
+## @param mailer.tls Enable TLS for this SMTP host
+## @param mailer.ssl Enable SSL for this SMTP host
+## @param mailer.user Authentication username for this SMTP host
+## @param mailer.password [object] Authentication password for this SMTP host
+mailer:
+  host: ""
+  port: ""
+  tls: ""
+  ssl: ""
+  user: ""
+    ## The password field can be a reference to a secret.
+    ## E.g.
+    ##   password:
+    ##     valueFrom:
+    ##       secretKeyRef:
+    ##         name: stream-secret
+    ##         key: mailerPassword
+    ##
+  password: {}
+
 ## @param extraObjects [array] Create a dynamic manifests via values:
 extraObjects:
   []
@@ -566,3 +592,4 @@ extraObjects:
   ##     data:
   ##       - key: stream-secret-key
   ##         name: stream-secret-name
+
