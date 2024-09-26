@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/evertrust/stream-helm/compare/v1.1.6...v1.2.0) (2024-09-26)
+
+
+### Features
+
+* **mailer:** allow smtp config ([#19](https://github.com/evertrust/stream-helm/issues/19)) ([816cb13](https://github.com/evertrust/stream-helm/commit/816cb13a7cec53e80096c6f773948e84d57a0e3f))
+
 ## [1.1.6](https://github.com/evertrust/stream-helm/compare/v1.1.5...v1.1.6) (2024-09-13)
 
 
