@@ -119,6 +119,29 @@ spec:
                 secretKeyRef:
                   name: {{ include "common.secrets.name" (dict "existingSecret" .Values.appSecret.secretName "context" $) }}
                   key: {{ include "common.secrets.key" (dict "existingSecret" .Values.appSecret.secretKey "key" "appSecret") }}
+            {{- if not (eq (.Values.mailer.host | quote) "") }}
+            - name: SMTP_HOST
+              value: {{ .Values.mailer.host }}
+            {{- end }}
+            {{- if not (eq (.Values.mailer.port | quote) "") }}
+            - name: SMTP_PORT
+              value: {{ .Values.mailer.port | quote }}
+            {{- end }}
+            {{- if not (eq (.Values.mailer.ssl | quote) "") }}
+            - name: SMTP_SSL
+              value: {{ .Values.mailer.ssl | quote }}
+            {{- end }}
+            {{- if not (eq (.Values.mailer.tls | quote) "") }}
+            - name: SMTP_TLS
+              value: {{ .Values.mailer.tls | quote }}
+            {{- end }}
+            {{- if not (eq (.Values.mailer.user | quote) "") }}
+            - name: SMTP_USER
+              value: {{ .Values.mailer.user | quote }}
+            {{- end }}
+            {{- if .Values.mailer.password }}
+            - name: SMTP_PASSWORD {{- include "common.tplvalues.render" (dict "value" .Values.mailer.password "context" $) | nindent 14 }}
+            {{- end }}
             {{- range $key, $value := (include "stream.allowedHosts" $ | fromJsonArray) }}
             - name: HOSTS_ALLOWED.{{ $key }}
               value: {{ $value }}
