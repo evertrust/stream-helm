@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/evertrust/stream-helm/compare/v1.2.0...v1.3.0) (2024-10-01)
+
+
+### Features
+
+* **upgrade:** support force option ([#21](https://github.com/evertrust/stream-helm/issues/21)) ([5fa8456](https://github.com/evertrust/stream-helm/commit/5fa8456e31ea511ce2b2df92bdd0bc0aebe90815))
+
 ## [1.2.0](https://github.com/evertrust/stream-helm/compare/v1.1.6...v1.2.0) (2024-09-26)
 
 
