@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/evertrust/stream-helm/compare/v1.3.0...v1.4.0) (2024-10-17)
+
+
+### Features
+
+* **intialAdminHashPassword:** support ([#23](https://github.com/evertrust/stream-helm/issues/23)) ([df8b551](https://github.com/evertrust/stream-helm/commit/df8b551d2c64e1c0c143b4eb4f5e6e1096d94ea4))
+
 ## [1.3.0](https://github.com/evertrust/stream-helm/compare/v1.2.0...v1.3.0) (2024-10-01)
 
 
