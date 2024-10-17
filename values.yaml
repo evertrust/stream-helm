@@ -409,6 +409,15 @@ license:
   secretName: ""
   secretKey: ""
 
+## Set up initial admin user.
+## @param initialAdminHashPassword.enabled Whether to enable the initial admin user
+## @param initialAdminHashPassword.secretName Existing secret name where the initial admin password is stored
+## @param initialAdminHashPassword.secretKey Existing secret key where the initial admin password is stored
+initialAdminHashPassword:
+  enabled: false
+  secretName: ""
+  secretKey: ""
+
 ## Additional allowed hosts that are whitelisted to access the Stream UI.
 ## Configured ingresses will automatically be added to the list, this should
 ## only be used when port forwarding or when an ingress is created manually.
