@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/evertrust/stream-helm/compare/v1.4.0...v1.4.1) (2024-10-31)
+
+
+### Bug Fixes
+
+* Stream Akka configuration template HA ([#25](https://github.com/evertrust/stream-helm/issues/25)) ([50f1e94](https://github.com/evertrust/stream-helm/commit/50f1e94bac3bcf9617282b9dd7eef449b4d8cf65))
+
 ## [1.4.0](https://github.com/evertrust/stream-helm/compare/v1.3.0...v1.4.0) (2024-10-17)
 
 
