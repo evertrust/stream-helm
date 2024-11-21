@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/evertrust/stream-helm/compare/v1.4.1...v1.5.0) (2024-11-21)
+
+
+### Features
+
+* **metrics:** support metrics configuration ([#27](https://github.com/evertrust/stream-helm/issues/27)) ([066db31](https://github.com/evertrust/stream-helm/commit/066db318af43aec377e04c6082c7cc154964eb47))
+
 ## [1.4.1](https://github.com/evertrust/stream-helm/compare/v1.4.0...v1.4.1) (2024-10-31)
 
 
