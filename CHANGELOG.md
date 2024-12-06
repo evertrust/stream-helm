@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/evertrust/stream-helm/compare/v1.6.0...v1.6.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* backup command ([5e310af](https://github.com/evertrust/stream-helm/commit/5e310af5e936b562180c9bb1f89c31b055deb8b5))
+
 ## [1.6.0](https://github.com/evertrust/stream-helm/compare/v1.5.1...v1.6.0) (2024-12-06)
 
 
