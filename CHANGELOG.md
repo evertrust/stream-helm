@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.0](https://github.com/evertrust/stream-helm/compare/v1.5.1...v1.6.0) (2024-12-06)
+
+
+### Features
+
+* **backup:** add backup support ([#31](https://github.com/evertrust/stream-helm/issues/31)) ([d2012a0](https://github.com/evertrust/stream-helm/commit/d2012a00e0fcd7d41f3c3dab4ca483f5e2580b3c))
+
+
+### Bug Fixes
+
+* bump toolbox version ([1bf9c91](https://github.com/evertrust/stream-helm/commit/1bf9c91792aafcf9396e0118ca6eae0b914f714b))
+* update job template ([7eaee42](https://github.com/evertrust/stream-helm/commit/7eaee42f225f53e9658d82f3ac0740d9a3bf1d3d))
+
 ## [1.5.1](https://github.com/evertrust/stream-helm/compare/v1.5.0...v1.5.1) (2024-11-29)
 
 
