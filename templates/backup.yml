@@ -32,9 +32,9 @@ spec:
         spec:
           containers:
           - name: backup
-            image: {{ include "common.images.image" (dict "imageRoot" .Values.backup.image "global" .Values.global) }}
+            image: {{ include "common.images.image" (dict "imageRoot" .Values.backup.image) }}
             imagePullPolicy: {{ .Values.backup.imagePullPolicy | default "IfNotPresent" | quote }}
-            command:
+            args:
               - backup
             env:
               - name: MONGODB_URI
@@ -50,5 +50,6 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
             resources: {{- toYaml .Values.backup.resources | nindent 14 }}
+          restartPolicy: Never
       backoffLimit: {{ .Values.backup.backoffLimit }}
 {{- end -}}
