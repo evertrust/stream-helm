@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.2](https://github.com/evertrust/stream-helm/compare/v1.6.1...v1.6.2) (2024-12-09)
+
+
+### Bug Fixes
+
+* set resource limit/request and security context for upgrade/back… ([#34](https://github.com/evertrust/stream-helm/issues/34)) ([14dd889](https://github.com/evertrust/stream-helm/commit/14dd889adfbf840871894c7514a0b9504bf09863))
+
 ## [1.6.1](https://github.com/evertrust/stream-helm/compare/v1.6.0...v1.6.1) (2024-12-06)
 
 
