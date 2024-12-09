@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.3](https://github.com/evertrust/stream-helm/compare/v1.6.2...v1.6.3) (2024-12-09)
+
+
+### Bug Fixes
+
+* cronJob name lenght ([#36](https://github.com/evertrust/stream-helm/issues/36)) ([dfd51fc](https://github.com/evertrust/stream-helm/commit/dfd51fccffb72e8e0a2c283bb5ddfaec6be84466))
+
 ## [1.6.2](https://github.com/evertrust/stream-helm/compare/v1.6.1...v1.6.2) (2024-12-09)
 
 
