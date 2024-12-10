@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.4](https://github.com/evertrust/stream-helm/compare/v1.6.3...v1.6.4) (2024-12-10)
+
+
+### Bug Fixes
+
+* security context rollback ([#38](https://github.com/evertrust/stream-helm/issues/38)) ([0c70c01](https://github.com/evertrust/stream-helm/commit/0c70c0188f3f142bf00674d67ada58b040d77754))
+
 ## [1.6.3](https://github.com/evertrust/stream-helm/compare/v1.6.2...v1.6.3) (2024-12-09)
 
 
