@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.5](https://github.com/evertrust/stream-helm/compare/v1.6.4...v1.6.5) (2024-12-13)
+
+
+### Bug Fixes
+
+* toolbox bump to 0.3.0 ([#40](https://github.com/evertrust/stream-helm/issues/40)) ([3c0bdd0](https://github.com/evertrust/stream-helm/commit/3c0bdd047b4848431780f892085dd3fbaaf5fc15))
+
 ## [1.6.4](https://github.com/evertrust/stream-helm/compare/v1.6.3...v1.6.4) (2024-12-10)
 
 
