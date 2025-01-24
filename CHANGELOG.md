@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.0-rc1](https://github.com/evertrust/stream-helm/compare/v1.7.0-rc1...v1.8.0-rc1) (2025-01-24)
+
+
+### Features
+
+* **rbac:** ability to disable rbac creation ([#46](https://github.com/evertrust/stream-helm/issues/46)) ([4fbbf89](https://github.com/evertrust/stream-helm/commit/4fbbf89d6f6e2fb2a9537c7ba8db717995dc6986))
+
+
+### Bug Fixes
+
+* **rbac:** move end template condition to the end of file ([#48](https://github.com/evertrust/stream-helm/issues/48)) ([7884566](https://github.com/evertrust/stream-helm/commit/78845660d82e1124b84b84e96600b5fafdc88639))
+
 ## [1.7.0-rc1](https://github.com/evertrust/stream-helm/compare/v1.6.6...v1.7.0-rc1) (2025-01-24)
 
 
