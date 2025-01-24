@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.7.0-rc1](https://github.com/evertrust/stream-helm/compare/v1.6.6...v1.7.0-rc1) (2025-01-24)
+
+
+### Features
+
+* separate liveness cehck ([2bfff44](https://github.com/evertrust/stream-helm/commit/2bfff44bed1b7b2451ce4b62879bd02edfb9f4a7))
+* switch to pekko ([2bfff44](https://github.com/evertrust/stream-helm/commit/2bfff44bed1b7b2451ce4b62879bd02edfb9f4a7))
+* use native leases ([2bfff44](https://github.com/evertrust/stream-helm/commit/2bfff44bed1b7b2451ce4b62879bd02edfb9f4a7))
+* Use Pekko ([#44](https://github.com/evertrust/stream-helm/issues/44)) ([2bfff44](https://github.com/evertrust/stream-helm/commit/2bfff44bed1b7b2451ce4b62879bd02edfb9f4a7))
+
 ## [1.6.6](https://github.com/evertrust/stream-helm/compare/v1.6.5...v1.6.6) (2025-01-14)
 
 
