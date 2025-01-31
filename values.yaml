@@ -471,8 +471,8 @@ tls:
   secretKey: ""
 
 ## @param rbac.create Whether to create RBAC resources
- rbac:
-   create: true
+rbac:
+  create: true
 
 ## @param leases.enabled Whether leases should be used when launching multiple replicas of Stream pods. This requires the leases.akka.io CRD to be installed.
 leases:
