@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.9](https://github.com/evertrust/stream-helm/compare/v1.6.8...v1.6.9) (2025-03-07)
+
+
+### Bug Fixes
+
+* skip injecting smtp env when empty ([#58](https://github.com/evertrust/stream-helm/issues/58)) ([#59](https://github.com/evertrust/stream-helm/issues/59)) ([aab44ee](https://github.com/evertrust/stream-helm/commit/aab44eef76f49dc333f651de365c29c7607bbd1f))
+
 ## [1.6.8](https://github.com/evertrust/stream-helm/compare/v1.6.7...v1.6.8) (2025-03-07)
 
 
