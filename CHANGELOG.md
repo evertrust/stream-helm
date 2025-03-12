@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0](https://github.com/evertrust/stream-helm/compare/v1.6.6...v1.7.0) (2025-03-12)
+
+
+### Features
+
+* **labels:** labels propagation on pods of deployment ([#50](https://github.com/evertrust/stream-helm/issues/50)) ([979c1db](https://github.com/evertrust/stream-helm/commit/979c1db132bfe71a752878837388c200c601f31b))
+
+
+### Bug Fixes
+
+* bump to 2.0.9 ([#52](https://github.com/evertrust/stream-helm/issues/52)) ([b8c73d8](https://github.com/evertrust/stream-helm/commit/b8c73d87b7570d36ce2b924d397432f8f21fedb2))
+
 ## [1.6.6](https://github.com/evertrust/stream-helm/compare/v1.6.5...v1.6.6) (2025-01-14)
 
 
