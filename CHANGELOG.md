@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.7.0-rc2](https://github.com/evertrust/stream-helm/compare/v1.7.0-rc1...v1.7.0-rc2) (2025-03-26)
+
+
+### Features
+
+* **labels:** labels propagation on pods of deployment ([#50](https://github.com/evertrust/stream-helm/issues/50)) ([0ded5bb](https://github.com/evertrust/stream-helm/commit/0ded5bbae16fb1476effcbe1409c89ef69a387ff))
+* **rbac:** ability to disable rbac creation ([#46](https://github.com/evertrust/stream-helm/issues/46)) ([4fbbf89](https://github.com/evertrust/stream-helm/commit/4fbbf89d6f6e2fb2a9537c7ba8db717995dc6986))
+
+
+### Bug Fixes
+
+* **rbac:** move end template condition to the end of file ([#48](https://github.com/evertrust/stream-helm/issues/48)) ([7884566](https://github.com/evertrust/stream-helm/commit/78845660d82e1124b84b84e96600b5fafdc88639))
+* skip injecting smtp env when empty ([#58](https://github.com/evertrust/stream-helm/issues/58)) ([86a9385](https://github.com/evertrust/stream-helm/commit/86a9385dd90a99165f4ac8065c69fd1d10ae7261))
+* **values:** remove unnecessary tabulation on rbac key ([#49](https://github.com/evertrust/stream-helm/issues/49)) ([d0a559b](https://github.com/evertrust/stream-helm/commit/d0a559b344128b6ed473ebf6c4f852e7201338cd))
+
+
+### Miscellaneous Chores
+
+* release 1.7.0-rc2 ([94b161f](https://github.com/evertrust/stream-helm/commit/94b161fce167bbb33cc4d27fe31d84670b4adfe2))
+
 ## [1.7.0-rc1](https://github.com/evertrust/stream-helm/compare/v1.6.6...v1.7.0-rc1) (2025-01-24)
 
 
