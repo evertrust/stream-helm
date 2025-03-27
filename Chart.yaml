@@ -3,7 +3,7 @@ name: stream
 description: EverTrust Stream Helm chart
 type: application
 version: 1.6.10
-appVersion: "2.0.10"
+appVersion: "2.0.11"
 icon: https://evertrust.io/media/logo-stream-blue.png
 home: https://evertrust.io
 sources:
