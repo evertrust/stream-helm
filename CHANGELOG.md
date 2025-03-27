@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.7.0-rc3](https://github.com/evertrust/stream-helm/compare/v1.7.0-rc2...v1.7.0-rc3) (2025-03-27)
+
+
+### Bug Fixes
+
+* **backup:** propagate labels and annotation to jolsb and job's pod ([#67](https://github.com/evertrust/stream-helm/issues/67)) ([18b44a9](https://github.com/evertrust/stream-helm/commit/18b44a9b2bb81e12e3c06844b85f59148eab58a3))
+
+
+### Miscellaneous Chores
+
+* release 1.7.0-rc3 ([a50b539](https://github.com/evertrust/stream-helm/commit/a50b539a8a56f281bb845dcb6585e3c7391cd46a))
+
 ## [1.7.0-rc2](https://github.com/evertrust/stream-helm/compare/v1.7.0-rc1...v1.7.0-rc2) (2025-03-26)
 
 
