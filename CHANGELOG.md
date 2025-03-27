@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.12](https://github.com/evertrust/stream-helm/compare/v1.6.11...v1.6.12) (2025-03-27)
+
+
+### Bug Fixes
+
+* **backup:** propagate labels and annotation to jolsb and job's pod ([#67](https://github.com/evertrust/stream-helm/issues/67)) ([33027f3](https://github.com/evertrust/stream-helm/commit/33027f314016286be58f9bf31d08db2a5595b45b))
+
 ## [1.6.11](https://github.com/evertrust/stream-helm/compare/v1.6.10...v1.6.11) (2025-03-27)
 
 
