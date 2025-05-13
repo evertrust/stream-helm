@@ -605,8 +605,7 @@ mailer:
   port: ""
   tls: ""
   ssl: ""
-  user:
-    ""
+  user: ""
     ## The password field can be a reference to a secret.
     ## E.g.
     ##   password:
