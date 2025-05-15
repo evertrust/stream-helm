@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.15](https://github.com/evertrust/stream-helm/compare/v1.6.14...v1.6.15) (2025-05-15)
+
+
+### Bug Fixes
+
+* bump stream to 2.0.14 ([#80](https://github.com/evertrust/stream-helm/issues/80)) ([c4103c3](https://github.com/evertrust/stream-helm/commit/c4103c3b9d4edcb6d973c29de25440c0bdfe6fe5))
+
 ## [1.6.14](https://github.com/evertrust/stream-helm/compare/v1.6.13...v1.6.14) (2025-05-05)
 
 
