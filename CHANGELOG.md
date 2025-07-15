@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.9.0](https://github.com/evertrust/stream-helm/compare/v1.8.2...v1.9.0) (2025-07-15)
+
+
+### Features
+
+* add service account support ([#79](https://github.com/evertrust/stream-helm/issues/79)) ([98a7f0b](https://github.com/evertrust/stream-helm/commit/98a7f0b1d79b3a6ee6ce09fd76a7f744040822f7))
+* automatically infer upgrade versions ([#89](https://github.com/evertrust/stream-helm/issues/89)) ([721cb4b](https://github.com/evertrust/stream-helm/commit/721cb4b17368f3e8eae24f460b4c6080066b1835))
+* support tolerations and nodeSelector for backup and upgrade jobs ([#91](https://github.com/evertrust/stream-helm/issues/91)) ([f67925f](https://github.com/evertrust/stream-helm/commit/f67925f51b65138f165a4ce6dd93699e8fb24829))
+
+
+### Bug Fixes
+
+* disable metrics for span processing ([#88](https://github.com/evertrust/stream-helm/issues/88)) ([2c26e39](https://github.com/evertrust/stream-helm/commit/2c26e39d79c7b297903859b559b74e0f14eb3e00))
+
 ## [1.8.2](https://github.com/evertrust/stream-helm/compare/v1.8.1...v1.8.2) (2025-07-09)
 
 
