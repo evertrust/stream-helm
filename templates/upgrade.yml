@@ -17,8 +17,12 @@ spec:
           args: [
               "-y",
               "-m", "$(MONGODB_URI)",
-              "-s", "{{ include "stream.installedVersion" . }}",
-              "-t", "{{ .Chart.AppVersion }}"
+              {{- if .Values.upgrade.from }}
+              "-s", "{{ .Values.upgrade.from }}",
+              {{- end }}
+              {{- if .Values.upgrade.to }}
+              "-t", "{{ .Values.upgrade.to }}",
+              {{- end }}
           ]
           resources: {{- toYaml .Values.upgrade.resources | nindent 12 }}
           env:
