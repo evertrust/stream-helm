@@ -7,6 +7,12 @@ spec:
   template:
     spec:
       {{- include "common.images.renderPullSecrets" (dict "images" (list .Values.upgrade.image) "context" $) | nindent 6 }}
+      {{- if .Values.upgrade.nodeSelector }}
+      nodeSelector: {{- toYaml .Values.upgrade.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.upgrade.tolerations }}
+      tolerations: {{- toYaml .Values.upgrade.tolerations | nindent 8 }}
+      {{- end }}
       containers:
         - name: stream-upgrade
           image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrade.image "global" .Values.global) }}
@@ -15,8 +21,12 @@ spec:
           args: [
               "-y",
               "-m", "$(MONGODB_URI)",
-              "-s", "{{ include "stream.installedVersion" . }}",
-              "-t", "{{ .Chart.AppVersion }}"
+              {{- if .Values.upgrade.from }}
+              "-s", "{{ .Values.upgrade.from }}",
+              {{- end }}
+              {{- if .Values.upgrade.to }}
+              "-t", "{{ .Values.upgrade.to }}"
+              {{- end }}
           ]
           resources: {{- toYaml .Values.upgrade.resources | nindent 12 }}
           env:

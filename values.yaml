@@ -563,6 +563,20 @@ upgrade:
     requests:
       memory: 512Mi
       cpu: 500m
+  ## @param upgrade.from Sets to the version you're upgrading from. If empty, the chart will try to infer the version from the database.
+  ##
+  from: ""
+  ## @param upgrade.to Sets the version you're upgrading to. If empty, the chart will use Chart.AppVersion.
+  ##
+  to: ""
+  ## @param upgrade.nodeSelector [object]  Node labels for upgrade pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+  ##
+  nodeSelector: {}
+  ## @param upgrade.tolerations [array] Tolerations for upgrade pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: []
 
 ## Configuration for a Stream external database
 ## Refer to the Stream installation guide to configure the installation correctly
@@ -587,7 +601,8 @@ mailer:
   port: ""
   tls: ""
   ssl: ""
-  user: ""
+  user:
+    ""
     ## The password field can be a reference to a secret.
     ## E.g.
     ##   password:
@@ -664,7 +679,6 @@ backup:
   environment: []
   ## @param envFrom [array] Extra env vars passed to the backup pods
   envFrom: []
-
 
 ## @param extraObjects [array] Create a dynamic manifests via values:
 extraObjects:
