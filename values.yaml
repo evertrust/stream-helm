@@ -587,7 +587,8 @@ mailer:
   port: ""
   tls: ""
   ssl: ""
-  user: ""
+  user:
+    ""
     ## The password field can be a reference to a secret.
     ## E.g.
     ##   password:
@@ -660,11 +661,18 @@ backup:
   ## to use the Kubernetes secrets implementation.
   ##
   ## ref: https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/
-  ## @param environment [array] Extra env vars passed to the backup pods
+  ## @param backup.environment [array] Extra env vars passed to the backup pods
   environment: []
-  ## @param envFrom [array] Extra env vars passed to the backup pods
+  ## @param backup.envFrom [array] Extra env vars passed to the backup pods
   envFrom: []
-
+  ## @param backup.nodeSelector [object]  Node labels for backup pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+  ##
+  nodeSelector: {}
+  ## @param backup.tolerations [array] Tolerations for backup pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: []
 
 ## @param extraObjects [array] Create a dynamic manifests via values:
 extraObjects:
