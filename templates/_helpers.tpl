@@ -83,8 +83,8 @@ is true or default otherwise.
 */}}
 {{- define "stream.serviceAccountName" -}}
     {{- if .Values.serviceAccount.create -}}
-        {{- default (include "common.names.fullname" .) (print .Values.serviceAccount.name) -}}
+        {{- default (include "common.names.fullname" .) .Values.serviceAccount.name -}}
     {{- else -}}
-        {{- default "default" (print .Values.serviceAccount.name) -}}
+        {{- default "default" .Values.serviceAccount.name -}}
     {{- end -}}
 {{- end -}}
