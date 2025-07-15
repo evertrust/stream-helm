@@ -7,6 +7,8 @@ spec:
   template:
     spec:
       {{- include "common.images.renderPullSecrets" (dict "images" (list .Values.upgrade.image) "context" $) | nindent 6 }}
+      serviceAccountName: {{ template "stream.serviceAccountName" . }}
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
       {{- if .Values.upgrade.nodeSelector }}
       nodeSelector: {{- toYaml .Values.upgrade.nodeSelector | nindent 8 }}
       {{- end }}
@@ -21,8 +23,12 @@ spec:
           args: [
               "-y",
               "-m", "$(MONGODB_URI)",
-              "-s", "{{ include "stream.installedVersion" . }}",
-              "-t", "{{ .Chart.AppVersion }}"
+              {{- if .Values.upgrade.from }}
+              "-s", "{{ .Values.upgrade.from }}",
+              {{- end }}
+              {{- if .Values.upgrade.to }}
+              "-t", "{{ .Values.upgrade.to }}",
+              {{- end }}
           ]
           resources: {{- toYaml .Values.upgrade.resources | nindent 12 }}
           env:
