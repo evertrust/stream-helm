@@ -563,6 +563,14 @@ upgrade:
     requests:
       memory: 512Mi
       cpu: 500m
+  ## @param upgrade.nodeSelector [object]  Node labels for upgrade pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+  ##
+  nodeSelector: {}
+  ## @param upgrade.tolerations [array] Tolerations for upgrade pod assignment
+  ## Ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  ##
+  tolerations: []
 
 ## Configuration for a Stream external database
 ## Refer to the Stream installation guide to configure the installation correctly
