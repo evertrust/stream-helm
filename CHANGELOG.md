@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.1](https://github.com/evertrust/stream-helm/compare/v1.9.0...v1.9.1) (2025-07-24)
+
+
+### Bug Fixes
+
+* properly render multiline extra config ([#93](https://github.com/evertrust/stream-helm/issues/93)) ([1d23287](https://github.com/evertrust/stream-helm/commit/1d23287f89e906fd4e259ec74aae8dab3e21d2d4))
+
 ## [1.9.0](https://github.com/evertrust/stream-helm/compare/v1.8.2...v1.9.0) (2025-07-15)
 
 
