@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.2](https://github.com/evertrust/stream-helm/compare/v1.9.1...v1.9.2) (2025-09-01)
+
+
+### Bug Fixes
+
+* **upgrade:** set 'to' to chart appVersion when empty ([#97](https://github.com/evertrust/stream-helm/issues/97)) ([f84d7c9](https://github.com/evertrust/stream-helm/commit/f84d7c9a628559ca562698cb7f100a36c0fdf76c))
+
 ## [1.9.1](https://github.com/evertrust/stream-helm/compare/v1.9.0...v1.9.1) (2025-07-24)
 
 
