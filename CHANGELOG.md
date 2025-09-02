@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.4](https://github.com/evertrust/stream-helm/compare/v1.9.3...v1.9.4) (2025-09-02)
+
+
+### Bug Fixes
+
+* **upgrade:** propagate labels ([#102](https://github.com/evertrust/stream-helm/issues/102)) ([e53e81f](https://github.com/evertrust/stream-helm/commit/e53e81ffd20b96fe347fa7f7d7f69cbe12269f82))
+
 ## [1.9.3](https://github.com/evertrust/stream-helm/compare/v1.9.2...v1.9.3) (2025-09-02)
 
 
