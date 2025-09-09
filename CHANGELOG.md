@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/evertrust/stream-helm/compare/v1.9.4...v1.10.0) (2025-09-09)
+
+
+### Features
+
+* **backup:** support affinity ([#104](https://github.com/evertrust/stream-helm/issues/104)) ([3b923f0](https://github.com/evertrust/stream-helm/commit/3b923f0fe5705ac0b5ca40d3219e0e07a9affad3))
+
 ## [1.9.4](https://github.com/evertrust/stream-helm/compare/v1.9.3...v1.9.4) (2025-09-02)
 
 
