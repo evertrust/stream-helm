@@ -72,6 +72,9 @@ spec:
           {{- if .Values.backup.tolerations }}
           tolerations: {{- toYaml .Values.backup.tolerations | nindent 12 }}
           {{- end }}
+          {{- if .Values.backup.affinity }}
+          affinity: {{- toYaml .Values.backup.affinity | nindent 12 }}
+          {{- end }}
           containers:
           - name: backup
             image: {{ include "common.images.image" (dict "imageRoot" .Values.backup.image) }}
