@@ -4,6 +4,7 @@ templates:
   - mongodb/deployment.yml
   - mongodb/service.yml
   - mongodb/pvc.yml
+  - secrets.yml
 tests:
   - it: should deploy a temporary mongodb by default
     template: mongodb/deployment.yml
