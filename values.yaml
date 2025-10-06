@@ -49,6 +49,7 @@ commonAnnotations: {}
 ## @param image.registry Stream image registry
 ## @param image.repository Stream image repository
 ## @param image.tag Stream image tag (immutable tags are recommended)
+## @param image.flavor Stream image flavor (for HSM compatible images)
 ## @param image.pullPolicy Stream image pull policy
 ## @param image.pullSecrets Stream image pull secrets
 ##
@@ -56,6 +57,7 @@ image:
   registry: registry.evertrust.io
   repository: stream
   tag: 2.1.4
+  flavor: ""
   pullPolicy: IfNotPresent
   pullSecrets: []
 
