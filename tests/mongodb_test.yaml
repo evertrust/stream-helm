@@ -41,3 +41,19 @@ tests:
     asserts:
       - hasDocuments:
           count: 1
+
+  - it: should generate a mongodb connection string in the secret when temporary database is enabled
+    template: secrets.yml
+    asserts:
+      - exists:
+          path: data.mongoUri
+
+  - it: should not generate a mongodb connection string in the secret when temporary database is disabled
+    set:
+      temporaryDatabase.enabled: false
+      externalDatabase.secretName: dummy
+      externalDatabase.secretKey: dummy
+    template: secrets.yml
+    asserts:
+      - notExists:
+          path: data.mongoUri
