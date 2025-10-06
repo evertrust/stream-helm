@@ -24,3 +24,5 @@
 # Dev value files
 values.*.yml
 /*.tgz
+# Helm tests
+tests/
