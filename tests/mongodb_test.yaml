@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: temporary mongodb database
+templates:
+  - mongodb/deployment.yml
+  - mongodb/service.yml
+  - mongodb/pvc.yml
+tests:
+  - it: should deploy a temporary mongodb by default
+    template: mongodb/deployment.yml
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: spec.template.spec.containers[0].name
+          value: mongo
+
+  - it: should not deploy a temporary mongodb when disabled
+    set:
+      temporaryDatabase.enabled: false
+      externalDatabase.secretName: dummy
+      externalDatabase.secretKey: dummy
+    template: mongodb/deployment.yml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should not deploy a temporary mongodb when legacy flag is disabled
+    set:
+      mongodb.enabled: false
+      externalDatabase.secretName: dummy
+      externalDatabase.secretKey: dummy
+    template: mongodb/deployment.yml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should deploy a temporary mongodb when legacy flag is enabled
+    set:
+      mongodb.enabled: true
+    template: mongodb/deployment.yml
+    asserts:
+      - hasDocuments:
+          count: 1
