@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.0.0](https://github.com/evertrust/stream-helm/compare/v1.10.1...v2.0.0) (2025-10-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* use the official mongodb image ([#109](https://github.com/evertrust/stream-helm/issues/109))
+
+### Features
+
+* add flavored images ([#110](https://github.com/evertrust/stream-helm/issues/110)) ([1e9fb26](https://github.com/evertrust/stream-helm/commit/1e9fb26d374f1322db756b1a6934f166bc6f6b18))
+* use the official mongodb image ([#109](https://github.com/evertrust/stream-helm/issues/109)) ([fb2f181](https://github.com/evertrust/stream-helm/commit/fb2f181fc4b4dfe05bf2f832ad83535a2f323fae))
+
 ## [1.10.1](https://github.com/evertrust/stream-helm/compare/v1.10.0...v1.10.1) (2025-09-11)
 
 
