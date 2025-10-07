@@ -9,7 +9,7 @@ dependencies:
 package: dependencies
 	helm package .
 
-test: setup-unittest
+test: dependencies setup-unittest
 	helm unittest . -v tests/values.yaml
 
 setup-unittest:

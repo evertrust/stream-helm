@@ -10,9 +10,5 @@ sources:
   - https://github.com/evertrust/stream-helm
 dependencies:
   - name: common
-    version: 2.2.2
-    repository: https://charts.bitnami.com/bitnami
-  - name: mongodb
-    version: 13.6.2
-    repository: https://charts.bitnami.com/bitnami
-    condition: mongodb.enabled
+    version: 2.30.0
+    repository: oci://registry-1.docker.io/bitnamicharts

@@ -10,14 +10,6 @@ app.kubernetes.io/version: {{ .Chart.AppVersion }}
 {{- end -}}
 
 {{/*
-Create a default fully qualified app name.
-We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
-*/}}
-{{- define "stream.mongodb.fullname" -}}
-{{- printf "%s-%s" .Release.Name "mongodb" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
-
-{{/*
 Prints all Stream allowed hosts.
 */}}
 {{- define "stream.allowedHosts" }}
