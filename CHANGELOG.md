@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/evertrust/stream-helm/compare/v2.0.0...v2.0.1) (2025-10-08)
+
+
+### Bug Fixes
+
+* bump backup toolbox ([#113](https://github.com/evertrust/stream-helm/issues/113)) ([e1659b0](https://github.com/evertrust/stream-helm/commit/e1659b00586fb232c46290ffba4c3c7c7be6e7b8))
+
 ## [2.0.0](https://github.com/evertrust/stream-helm/compare/v1.10.1...v2.0.0) (2025-10-07)
 
 
