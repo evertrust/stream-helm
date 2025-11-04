@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.16](https://github.com/evertrust/stream-helm/compare/v1.6.15...v1.6.16) (2025-11-04)
+
+
+### Bug Fixes
+
+* **backup:** backport toleration and affinity support ([#117](https://github.com/evertrust/stream-helm/issues/117)) ([39ca478](https://github.com/evertrust/stream-helm/commit/39ca478d72ea759643c2f939abe053e98be4c265))
+
 ## [1.6.15](https://github.com/evertrust/stream-helm/compare/v1.6.14...v1.6.15) (2025-05-15)
 
 
