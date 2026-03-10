@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.5](https://github.com/evertrust/stream-helm/compare/v2.0.4...v2.0.5) (2026-03-10)
+
+
+### Bug Fixes
+
+* indentation for securityContext in mongodb deployment ([#126](https://github.com/evertrust/stream-helm/issues/126)) ([1281099](https://github.com/evertrust/stream-helm/commit/128109920f4efd6cf6dd3bb35d3c4f5a882fc57f))
+
 ## [2.0.4](https://github.com/evertrust/stream-helm/compare/v2.0.3...v2.0.4) (2026-02-16)
 
 
