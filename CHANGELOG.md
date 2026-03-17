@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.6](https://github.com/evertrust/stream-helm/compare/v2.0.5...v2.0.6) (2026-03-17)
+
+
+### Bug Fixes
+
+* do not render replicas when autoscaling is enabled ([#128](https://github.com/evertrust/stream-helm/issues/128)) ([da273fa](https://github.com/evertrust/stream-helm/commit/da273fa4084a49185b434ebd9c84f27f1e18b578))
+* include revisionHistoryLimit in Deployment with default set to 3 ([da273fa](https://github.com/evertrust/stream-helm/commit/da273fa4084a49185b434ebd9c84f27f1e18b578))
+
 ## [2.0.5](https://github.com/evertrust/stream-helm/compare/v2.0.4...v2.0.5) (2026-03-10)
 
 
