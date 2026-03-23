@@ -45,3 +45,46 @@ tests:
       - equal:
           path: spec.maxReplicas
           value: 5
+
+  - it: should omit dnsConfig by default
+    template: deployment.yml
+    asserts:
+      - notExists:
+          path: spec.template.spec.dnsConfig
+
+  - it: should render dnsConfig options when specified via values
+    template: deployment.yml
+    set:
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
+        searches:
+          - cluster.home.arpa
+          - home.arpa
+    asserts:
+      - equal:
+          path: spec.template.spec.dnsConfig
+          value:
+            options:
+              - name: ndots
+                value: "1"
+            searches:
+              - cluster.home.arpa
+              - home.arpa
+
+  - it: should render dnsPolicy by default
+    template: deployment.yml
+    asserts:
+      - equal:
+          path: spec.template.spec.dnsPolicy
+          value: ClusterFirst
+
+  - it: should render dnsPolicy when specified via values
+    template: deployment.yml
+    set:
+      dnsPolicy: ClusterFirstWithHostNet
+    asserts:
+      - equal:
+          path: spec.template.spec.dnsPolicy
+          value: ClusterFirstWithHostNet
