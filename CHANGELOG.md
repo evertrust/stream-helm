@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.7](https://github.com/evertrust/stream-helm/compare/v2.0.6...v2.0.7) (2026-03-25)
+
+
+### Bug Fixes
+
+* allow securityContexts and volumeMounts in more containers ([#131](https://github.com/evertrust/stream-helm/issues/131)) ([fa5fc05](https://github.com/evertrust/stream-helm/commit/fa5fc05072dc531b8911c0527e1c2e28deba8abb))
+
 ## [2.0.6](https://github.com/evertrust/stream-helm/compare/v2.0.5...v2.0.6) (2026-03-17)
 
 
