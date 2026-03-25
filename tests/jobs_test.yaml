@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: job workload features
+templates:
+  - backup.yml
+  - upgrade.yml
+tests:
+  - it: should render backup extra volumes and volume mounts
+    template: backup.yml
+    set:
+      backup:
+        enabled: true
+        extraVolumes:
+          - name: mongodb-certificates
+            secret:
+              secretName: mongodb-certificates
+        extraVolumeMounts:
+          - name: mongodb-certificates
+            mountPath: /etc/mongodb/certs
+            readOnly: true
+    asserts:
+      - isKind:
+          of: CronJob
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.volumes
+          content:
+            name: mongodb-certificates
+            secret:
+              secretName: mongodb-certificates
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].volumeMounts
+          content:
+            name: mongodb-certificates
+            mountPath: /etc/mongodb/certs
+            readOnly: true
+
+  - it: should render upgrade security contexts extra volumes and volume mounts
+    template: upgrade.yml
+    set:
+      upgrade:
+        force: true
+        podSecurityContext:
+          enabled: true
+          fsGroup: 2000
+        containerSecurityContext:
+          enabled: true
+          runAsUser: 2000
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          seccompProfile:
+            type: RuntimeDefault
+        extraVolumes:
+          - name: mongodb-certificates
+            secret:
+              secretName: mongodb-certificates
+        extraVolumeMounts:
+          - name: mongodb-certificates
+            mountPath: /etc/mongodb/certs
+            readOnly: true
+    asserts:
+      - isKind:
+          of: Job
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            fsGroup: 2000
+      - equal:
+          path: spec.template.spec.containers[0].securityContext
+          value:
+            runAsUser: 2000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: mongodb-certificates
+            secret:
+              secretName: mongodb-certificates
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: mongodb-certificates
+            mountPath: /etc/mongodb/certs
+            readOnly: true
