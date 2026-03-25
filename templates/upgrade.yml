@@ -24,6 +24,9 @@ spec:
       {{- include "common.images.renderPullSecrets" (dict "images" (list .Values.upgrade.image) "context" $) | nindent 6 }}
       serviceAccountName: {{ template "stream.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
+      {{- if .Values.upgrade.podSecurityContext.enabled }}
+      securityContext: {{- omit .Values.upgrade.podSecurityContext "enabled" | toYaml | nindent 8 }}
+      {{- end }}
       {{- if .Values.upgrade.nodeSelector }}
       nodeSelector: {{- toYaml .Values.upgrade.nodeSelector | nindent 8 }}
       {{- end }}
@@ -34,6 +37,9 @@ spec:
         - name: stream-upgrade
           image: {{ include "common.images.image" (dict "imageRoot" .Values.upgrade.image "global" .Values.global) }}
           imagePullPolicy: {{ .Values.upgrade.image.pullPolicy | default "IfNotPresent" | quote }}
+          {{- if .Values.upgrade.containerSecurityContext.enabled }}
+          securityContext: {{- omit .Values.upgrade.containerSecurityContext "enabled" | toYaml | nindent 12 }}
+          {{- end }}
           args: [
               "-y",
               "-m", "$(MONGODB_URI)",
@@ -51,6 +57,14 @@ spec:
                 secretKeyRef:
                   name: {{ include "common.secrets.name" (dict "existingSecret" .Values.externalDatabase.secretName "context" $) }}
                   key: {{ include "common.secrets.key" (dict "existingSecret" .Values.externalDatabase.secretKey "key" "mongoUri") }}
+          {{- if .Values.upgrade.extraVolumeMounts }}
+          volumeMounts:
+          {{- include "common.tplvalues.render" (dict "value" .Values.upgrade.extraVolumeMounts "context" $) | nindent 12 }}
+          {{- end }}
+      {{- if .Values.upgrade.extraVolumes }}
+      volumes:
+      {{- include "common.tplvalues.render" (dict "value" .Values.upgrade.extraVolumes "context" $) | nindent 8 }}
+      {{- end }}
       restartPolicy: Never
   backoffLimit: 0
 {{- end }}

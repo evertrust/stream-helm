@@ -635,12 +635,44 @@ upgrade:
     requests:
       memory: 512Mi
       cpu: 500m
+  ## Configure Pods Security Context
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
+  ## @param upgrade.podSecurityContext.enabled Enabled Stream pods' Security Context
+  ## @param upgrade.podSecurityContext.fsGroup Set Stream pod's Security Context fsGroup
+  ##
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+  ## Configure Container Security Context (only main container)
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
+  ## @param upgrade.containerSecurityContext.enabled Enabled Stream containers' Security Context
+  ## @param upgrade.containerSecurityContext.runAsUser Set Stream container's Security Context runAsUser
+  ## @param upgrade.containerSecurityContext.runAsNonRoot Set Stream container's Security Context runAsNonRoot
+  ##
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 1001
+    runAsNonRoot: true
   ## @param upgrade.from Sets to the version you're upgrading from. If empty, the chart will try to infer the version from the database.
   ##
   from: ""
   ## @param upgrade.to Sets the version you're upgrading to. If empty, the chart will use Chart.AppVersion.
   ##
   to: ""
+  ## @param upgrade.extraVolumes Optionally specify extra list of additional volumes for upgrade pods
+  ## extraVolumes:
+  ##   - name: certificates
+  ##     secret:
+  ##       secretName: mongodb-x509
+  ##
+  extraVolumes: []
+  ## @param upgrade.extraVolumeMounts Optionally specify extra list of additional volumeMounts for upgrade containers
+  ## extraVolumeMounts:
+  ##   - name: certificates
+  ##     mountPath: /certs
+  ##     readOnly: true
+  ##
+  extraVolumeMounts: []
   ## @param upgrade.nodeSelector [object]  Node labels for upgrade pod assignment
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
@@ -750,6 +782,20 @@ backup:
   environment: []
   ## @param backup.envFrom [array] Extra env vars passed to the backup pods
   envFrom: []
+  ## @param backup.extraVolumes Optionally specify extra list of additional volumes for backup pods
+  ## extraVolumes:
+  ##   - name: certificates
+  ##     secret:
+  ##       secretName: mongodb-x509
+  ##
+  extraVolumes: []
+  ## @param backup.extraVolumeMounts Optionally specify extra list of additional volumeMounts for backup containers
+  ## extraVolumeMounts:
+  ##   - name: certificates
+  ##     mountPath: /certs
+  ##     readOnly: true
+  ##
+  extraVolumeMounts: []
   ## @param backup.nodeSelector [object]  Node labels for backup pod assignment
   ## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
   ##
