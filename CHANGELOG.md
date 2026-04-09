@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.8](https://github.com/evertrust/stream-helm/compare/v2.0.7...v2.0.8) (2026-04-09)
+
+
+### Miscellaneous Chores
+
+* release 2.0.8 ([e5e23a1](https://github.com/evertrust/stream-helm/commit/e5e23a13d268755696c6fe069aa15ed831b57744))
+
 ## [2.0.7](https://github.com/evertrust/stream-helm/compare/v2.0.6...v2.0.7) (2026-03-25)
 
 
