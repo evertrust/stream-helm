@@ -4,6 +4,68 @@ templates:
   - deployment.yml
   - hpa.yml
 tests:
+  - it: should omit deployment annotations by default
+    template: deployment.yml
+    asserts:
+      - isKind:
+          of: Deployment
+      - notExists:
+          path: metadata.annotations
+
+  - it: should render deployment annotations when commonAnnotations is specified
+    template: deployment.yml
+    set:
+      commonAnnotations:
+        test: value
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.annotations
+          value:
+            test: value
+
+  - it: should render deployment annotations when deploymentAnnotations is specified
+    template: deployment.yml
+    set:
+      deploymentAnnotations:
+        test: value
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.annotations
+          value:
+            test: value
+
+  - it: should render deployment annotations when commonAnnotations and deploymentAnnotations are specified
+    template: deployment.yml
+    set:
+      commonAnnotations:
+        value: test
+      deploymentAnnotations:
+        test: value
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.annotations
+          value:
+            value: test
+            test: value
+
+  - it: should render deployment labels when deploymentLabels is specified
+    template: deployment.yml
+    set:
+      deploymentLabels:
+        test: value
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.labels["test"]
+          value: value
+
   - it: should render deployment replicas from replicas when autoscaling is disabled
     template: deployment.yml
     set:

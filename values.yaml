@@ -75,6 +75,14 @@ image:
 updateStrategy:
   type: Recreate
 
+## @param deploymentAnnotations Annotations to add to the deployment object
+##
+deploymentAnnotations: {}
+
+## @param deploymentAnnotations Annotations to add to the deployment object
+##
+deploymentLabels: {}
+
 ## @param priorityClassName Stream pod priority class name
 ##
 priorityClassName: ""
