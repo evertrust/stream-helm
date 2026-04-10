@@ -46,7 +46,7 @@ image:
   ## Stream image repository
   repository: stream
   ## Stream image tag (immutable tags are recommended)
-  tag: 2.1.7
+  tag: 2.1.8
   ## Stream image flavor (for HSM compatible images)
   flavor: ""
   ## Stream image pull policy
@@ -574,7 +574,7 @@ upgrade:
     ## Stream image repository
     repository: stream-upgrade
     ## Stream image tag (immutable tags are recommended)
-    tag: 2.1.7
+    tag: 2.1.8
     ## Stream image pull policy
     pullPolicy: IfNotPresent
     ## Stream image pull secrets
