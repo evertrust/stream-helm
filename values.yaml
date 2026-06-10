@@ -252,6 +252,11 @@ horizontalAutoscaler:
   targetCPU: 50
   ## Target Memory utilization percentage
   targetMemory: 50
+externalAutoscaler:
+  ## Set to true when replicas are managed by an autoscaler not created by this chart.
+  ## For example, this can be used with a KEDA ScaledObject rendered through extraObjects.
+  ## When enabled, spec.replicas is omitted from the Deployment.
+  enabled: false
 ## Pod Disruption Budget configuration
 ## @ref https://kubernetes.io/docs/tasks/run-application/configure-pdb/
 ##
