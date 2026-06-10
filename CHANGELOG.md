@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/evertrust/stream-helm/compare/v2.0.11...v2.1.0) (2026-06-10)
+
+
+### Features
+
+* **external-autoscaler:** support external autoscaler replicas ([#143](https://github.com/evertrust/stream-helm/issues/143)) ([2bb7503](https://github.com/evertrust/stream-helm/commit/2bb7503c7afbf434518df8be72de341254b56a37))
+
 ## [2.0.11](https://github.com/evertrust/stream-helm/compare/v2.0.10...v2.0.11) (2026-05-29)
 
 
