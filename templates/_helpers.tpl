@@ -39,6 +39,20 @@ Prints all Stream trusted proxies.
 {{- end }}
 
 {{/*
+Prints true when the Deployment should render spec.replicas.
+*/}}
+{{- define "stream.shouldRenderReplicas" -}}
+{{- if and .Values.horizontalAutoscaler.enabled .Values.externalAutoscaler.enabled -}}
+    {{- fail "horizontalAutoscaler.enabled and externalAutoscaler.enabled are mutually exclusive" -}}
+{{- end -}}
+{{- if or .Values.horizontalAutoscaler.enabled .Values.externalAutoscaler.enabled -}}
+    {{- print "false" -}}
+{{- else -}}
+    {{- print "true" -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Prints the actual installed version on the cluster
 */}}
 {{- define "stream.installedVersion" }}
