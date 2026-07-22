@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/evertrust/stream-helm/compare/v2.1.0...v2.2.0) (2026-07-22)
+
+
+### Features
+
+* add prometheus service monitor template ([#146](https://github.com/evertrust/stream-helm/issues/146)) ([de4e56a](https://github.com/evertrust/stream-helm/commit/de4e56aafc167f2cdd57c3fcb9af6c07e7247283))
+
 ## [2.1.0](https://github.com/evertrust/stream-helm/compare/v2.0.11...v2.1.0) (2026-06-10)
 
 
