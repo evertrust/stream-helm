@@ -1,0 +1,50 @@
+name: Open Stream bump PR
+
+# Runs in the context of the branch it is dispatched on (master or a legacy/stream-X.Y
+# branch, selected by bump-version.yaml). It bumps that branch's chart versions and opens
+# the pull request against it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      stream_version:
+        description: "The released Stream version, without the leading v (e.g. 2.10.7)"
+        required: true
+        type: string
+      migration_version:
+        description: "The Stream Migration image version (e.g. 1.27.0)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install yq
+        run: |
+          sudo curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.53.3/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+          yq --version
+
+      - name: Bump chart versions
+        env:
+          STREAM_VERSION: ${{ inputs.stream_version }}
+          MIGRATION_VERSION: ${{ inputs.migration_version }}
+        run: make bump STREAM_VERSION="$STREAM_VERSION" MIGRATION_VERSION="$MIGRATION_VERSION"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7.0.8
+        with:
+          add-paths: |
+            Chart.yaml
+            values.yaml
+          title: "fix: bump stream to ${{ inputs.stream_version }} and stream-migration to ${{ inputs.migration_version }}"
+          commit-message: "fix: bump stream to ${{ inputs.stream_version }} and stream-migration to ${{ inputs.migration_version }}"
+          branch: "bump_stream_${{ inputs.stream_version }}"
