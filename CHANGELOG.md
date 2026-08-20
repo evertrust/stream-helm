@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/evertrust/stream-helm/compare/v2.2.1...v2.3.0) (2026-08-20)
+
+
+### Features
+
+* add enable service links support to deployment ([#151](https://github.com/evertrust/stream-helm/issues/151)) ([732c20a](https://github.com/evertrust/stream-helm/commit/732c20abc293a535c389c13cdbf8266d37966a1e))
+
 ## [2.2.1](https://github.com/evertrust/stream-helm/compare/v2.2.0...v2.2.1) (2026-07-23)
 
 
