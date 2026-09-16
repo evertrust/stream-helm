@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/evertrust/stream-helm/compare/v2.3.1...v2.3.2) (2026-09-16)
+
+
+### Miscellaneous Chores
+
+* release 2.3.2 ([2266c36](https://github.com/evertrust/stream-helm/commit/2266c36edbb52cd49aad542dcb70d29f74a24c42))
+
 ## [2.3.1](https://github.com/evertrust/stream-helm/compare/v2.3.0...v2.3.1) (2026-09-07)
 
 
