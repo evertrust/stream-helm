@@ -42,7 +42,7 @@ commonAnnotations: {}
 ##
 image:
   ## Stream image registry
-  registry: registry.evertrust.io
+  registry: harbor.infra.evertrust.io/library
   ## Stream image repository
   repository: stream
   ## Stream image tag (immutable tags are recommended)
@@ -582,7 +582,7 @@ upgrade:
   ## Upgrade image
   image:
     ## Stream image registry
-    registry: registry.evertrust.io
+    registry: harbor.infra.evertrust.io/library
     ## Stream image repository
     repository: stream-upgrade
     ## Stream image tag (immutable tags are recommended)
@@ -702,7 +702,7 @@ backup:
   backoffLimit: 3
   ## Toolbox image
   image:
-    registry: quay.io/evertrust
+    registry: harbor.infra.evertrust.io
     ## Toolbox image repository
     repository: toolbox
     ## Toolbox image tag (immutable tags are recommended)
