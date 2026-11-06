@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.3](https://github.com/evertrust/stream-helm/compare/v2.3.2...v2.3.3) (2026-11-06)
+
+
+### Bug Fixes
+
+* bump stream to 2.1.13 and stream-migration to 2.1.13 ([#161](https://github.com/evertrust/stream-helm/issues/161)) ([94b2b04](https://github.com/evertrust/stream-helm/commit/94b2b049dbd0e2d1de2e02eb41ca95f62babd3d7))
+
 ## [2.3.2](https://github.com/evertrust/stream-helm/compare/v2.3.1...v2.3.2) (2026-09-16)
 
 
