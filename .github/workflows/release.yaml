@@ -3,8 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - master
-      - v1.6
+      - legacy/stream-1.6
 
 permissions:
   contents: write
