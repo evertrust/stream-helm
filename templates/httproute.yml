@@ -5,6 +5,11 @@
 {{- if empty .Values.route.hostnames }}
 {{- fail "route.hostnames must contain at least one hostname when route.enabled is true" }}
 {{- end }}
+{{- range .Values.route.http.plainPaths }}
+{{- if has . $.Values.route.publicPaths }}
+{{- fail (printf "path %s cannot be in both route.publicPaths and route.http.plainPaths" .) }}
+{{- end }}
+{{- end }}
 {{- $fullName := include "common.names.fullname" . }}
 {{- $backendRefs := list (dict "name" $fullName "port" 9000) }}
 {{- /* Protectable route: the whole application, served over HTTPS. */}}
@@ -28,12 +33,16 @@ spec:
       backendRefs: {{- toYaml $backendRefs | nindent 8 }}
 {{- if .Values.route.publicPaths }}
 ---
-{{- /* Public route: unauthenticated PKI endpoints, served over HTTPS. */}}
+{{- /* Public route: PKI endpoints relying parties must reach from anywhere, over HTTPS and plain HTTP. Never protected. */}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 {{ include "stream.route.metadata" (dict "name" (printf "%s-public" $fullName) "context" $) }}
 spec:
-  parentRefs: {{- include "common.tplvalues.render" (dict "value" .Values.route.parentRefs "context" $) | nindent 4 }}
+  parentRefs:
+    {{- include "common.tplvalues.render" (dict "value" .Values.route.parentRefs "context" $) | nindent 4 }}
+    {{- if .Values.route.http.parentRefs }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.route.http.parentRefs "context" $) | nindent 4 }}
+    {{- end }}
   hostnames:
     {{- range .Values.route.hostnames }}
     - {{ . | quote }}
@@ -49,7 +58,7 @@ spec:
 {{- end }}
 {{- if .Values.route.http.parentRefs }}
 ---
-{{- /* Plain HTTP route: public PKI endpoints are never redirected, everything else is. */}}
+{{- /* Protectable plain HTTP route: plainPaths served without redirect, then the rest redirected to HTTPS (or served). */}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 {{ include "stream.route.metadata" (dict "name" (printf "%s-http" $fullName) "context" $) }}
@@ -60,9 +69,9 @@ spec:
     - {{ . | quote }}
     {{- end }}
   rules:
-    {{- if .Values.route.publicPaths }}
+    {{- if .Values.route.http.plainPaths }}
     - matches:
-        {{- range .Values.route.publicPaths }}
+        {{- range .Values.route.http.plainPaths }}
         - path:
             type: PathPrefix
             value: {{ . | quote }}
