@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/evertrust/stream-helm/compare/v2.4.1...v2.5.0) (2026-11-23)
+
+
+### Features
+
+* add Gateway API HTTPRoute support ([#174](https://github.com/evertrust/stream-helm/issues/174)) ([e72f20f](https://github.com/evertrust/stream-helm/commit/e72f20fc46ada873ba07896ca935d0b165e73a89))
+
 ## [2.4.1](https://github.com/evertrust/stream-helm/compare/v2.4.0...v2.4.1) (2026-11-18)
 
 
