@@ -23,4 +23,5 @@
 .vscode/
 # Dev value files
 values.*.yml
-/*.tgz
+/*.tgz# Helm tests
+tests/

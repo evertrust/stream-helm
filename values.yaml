@@ -380,6 +380,79 @@ ingress:
   ##
   extraRules: []
 
+## @section Gateway API route parameters
+##
+## Route contract (names are stable, platforms target them with policies):
+##   <fullname>         Protectable. The whole application over HTTPS (PathPrefix route.path),
+##                      with route.filters.
+##   <fullname>-http    Protectable. Only rendered when route.http.parentRefs is set. Serves
+##                      route.http.plainPaths over plain HTTP without redirect, then either
+##                      redirects everything else to HTTPS (route.http.redirect: true) or serves
+##                      the whole application over plain HTTP with route.filters.
+##   <fullname>-public  Never protected. Only rendered when route.publicPaths is not empty.
+##                      Serves route.publicPaths on both route.parentRefs (HTTPS) and
+##                      route.http.parentRefs (HTTP), never redirected: relying parties fetch the
+##                      http:// OCSP, CRL and AIA URLs found in certificates from anywhere.
+## A platform may attach access policies (e.g. an IP allowlist) to every route except <fullname>-public.
+## Longest prefix matching makes the public and plain paths win over the "/" rules of the other routes.
+##
+## ref: https://gateway-api.sigs.k8s.io/api-types/httproute/
+##
+route:
+  ## @param route.enabled Set to true to enable Gateway API HTTPRoute generation
+  ##
+  enabled: false
+  ## @param route.parentRefs Parent references (HTTPS listeners) of the <fullname> and <fullname>-public routes. Required when route.enabled is true. Rendered as a template.
+  ## e.g:
+  ## parentRefs:
+  ##   - name: my-gateway
+  ##     namespace: gateway-system
+  ##     sectionName: https
+  ##
+  parentRefs: []
+  ## @param route.hostnames Hostnames served by every route. Required when route.enabled is true. Also added to the Stream allowed hosts.
+  ##
+  hostnames: []
+  ## @param route.path Path prefix of the application rules (Gateway API PathPrefix, no wildcard)
+  ##
+  path: /
+  ## @param route.annotations Additional annotations for every HTTPRoute
+  ##
+  annotations: {}
+  ## @param route.filters Extra filters on the application rules of <fullname> (and of <fullname>-http when route.http.redirect is false). Never applied to public or plain paths. Rendered as a template.
+  ## e.g:
+  ## filters:
+  ##   - type: RequestHeaderModifier
+  ##     requestHeaderModifier:
+  ##       set:
+  ##         - name: x-custom-header
+  ##           value: some-value
+  ##
+  filters: []
+  ## @param route.publicPaths Unauthenticated PKI endpoints served on <fullname>-public over HTTPS and HTTP. Set to [] to not render <fullname>-public. A path cannot be in both route.publicPaths and route.http.plainPaths.
+  ##
+  publicPaths:
+    - /ocsp
+    - /crls
+    - /aias
+  http:
+    ## @param route.http.parentRefs Parent references (HTTP listeners) of <fullname>-http, also added to <fullname>-public. Leave empty to not serve plain HTTP. Rendered as a template.
+    ## e.g:
+    ## parentRefs:
+    ##   - name: my-gateway
+    ##     namespace: gateway-system
+    ##     sectionName: http
+    ##
+    parentRefs: []
+    ## @param route.http.redirect Redirect the rest of the plain HTTP traffic to HTTPS with a 301. When false, the application is served over plain HTTP on <fullname>-http, with route.filters.
+    ##
+    redirect: true
+    ## @param route.http.plainPaths Paths served over plain HTTP without redirect on the protectable <fullname>-http route (without route.filters)
+    ##
+    plainPaths:
+      - /krls
+      - /tsa
+
 ## @section Stream application parameters
 
 ## Configure the Play secret for the Stream instance.
