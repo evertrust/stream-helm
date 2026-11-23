@@ -1,0 +1,372 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/helm-unittest/helm-unittest/main/schema/helm-testsuite.json
+suite: gateway api httproute
+templates:
+  - httproute.yml
+  - deployment.yml
+release:
+  name: stream
+tests:
+  - it: should not render any HTTPRoute by default
+    template: httproute.yml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should fail when route.parentRefs is missing
+    template: httproute.yml
+    set:
+      route:
+        enabled: true
+        hostnames:
+          - stream.example.com
+    asserts:
+      - failedTemplate:
+          errorMessage: route.parentRefs must be specified when route.enabled is true
+
+  - it: should fail when route.hostnames is missing
+    template: httproute.yml
+    set:
+      route:
+        enabled: true
+        parentRefs:
+          - name: gw
+            sectionName: https
+    asserts:
+      - failedTemplate:
+          errorMessage: route.hostnames must contain at least one hostname when route.enabled is true
+
+  - it: should render the protectable, public and http routes
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    asserts:
+      - hasDocuments:
+          count: 3
+      - isKind:
+          of: HTTPRoute
+      - isAPIVersion:
+          of: gateway.networking.k8s.io/v1
+      - equal:
+          path: metadata.name
+          value: stream
+        documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: stream-public
+        documentIndex: 1
+      - equal:
+          path: metadata.name
+          value: stream-http
+        documentIndex: 2
+      - equal:
+          path: spec.hostnames
+          value:
+            - stream.example.com
+
+  - it: should route the whole application on the protectable route
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.parentRefs
+          value:
+            - name: gw
+              namespace: gateway-system
+              sectionName: https
+      - equal:
+          path: spec.rules
+          value:
+            - matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+              backendRefs:
+                - name: stream
+                  port: 9000
+
+  - it: should expose the default public paths over HTTPS and HTTP without filters
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: x-test
+                value: test
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.parentRefs
+          value:
+            - name: gw
+              namespace: gateway-system
+              sectionName: https
+            - name: gw
+              namespace: gateway-system
+              sectionName: http
+      - lengthEqual:
+          path: spec.rules
+          count: 1
+      - equal:
+          path: spec.rules[0].matches
+          value:
+            - path: {type: PathPrefix, value: /ocsp}
+            - path: {type: PathPrefix, value: /crls}
+            - path: {type: PathPrefix, value: /aias}
+      - notExists:
+          path: spec.rules[0].filters
+      - equal:
+          path: spec.rules[0].backendRefs
+          value:
+            - name: stream
+              port: 9000
+
+  - it: should only attach the public route to the HTTPS parents without route.http.parentRefs
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.http.parentRefs: []
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: spec.parentRefs
+          value:
+            - name: gw
+              namespace: gateway-system
+              sectionName: https
+
+  - it: should serve plain paths over HTTP and redirect the rest with a 301
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    documentIndex: 2
+    asserts:
+      - equal:
+          path: spec.parentRefs
+          value:
+            - name: gw
+              namespace: gateway-system
+              sectionName: http
+      - equal:
+          path: spec.rules
+          value:
+            - matches:
+                - path: {type: PathPrefix, value: /krls}
+                - path: {type: PathPrefix, value: /tsa}
+              backendRefs:
+                - name: stream
+                  port: 9000
+            - matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+              filters:
+                - type: RequestRedirect
+                  requestRedirect:
+                    scheme: https
+                    statusCode: 301
+
+  - it: should only redirect on the http route when plainPaths is empty
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.http.plainPaths: []
+    documentIndex: 2
+    asserts:
+      - lengthEqual:
+          path: spec.rules
+          count: 1
+      - equal:
+          path: spec.rules[0].filters[0].type
+          value: RequestRedirect
+
+  - it: should serve the application over HTTP with filters when redirect is false
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.http.redirect: false
+      route.filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: x-test
+                value: test
+    documentIndex: 2
+    asserts:
+      - lengthEqual:
+          path: spec.rules
+          count: 2
+      - notExists:
+          path: spec.rules[0].filters
+      - equal:
+          path: spec.rules[1]
+          value:
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            filters:
+              - type: RequestHeaderModifier
+                requestHeaderModifier:
+                  set:
+                    - name: x-test
+                      value: test
+            backendRefs:
+              - name: stream
+                port: 9000
+
+  - it: should render custom filters on the application rule only
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: x-release
+                value: "{{ .Release.Name }}"
+    asserts:
+      - equal:
+          path: spec.rules[0].filters
+          value:
+            - type: RequestHeaderModifier
+              requestHeaderModifier:
+                set:
+                  - name: x-release
+                    value: stream
+        documentIndex: 0
+      - notExists:
+          path: spec.rules[0].filters
+        documentIndex: 1
+      - notExists:
+          path: spec.rules[0].filters
+        documentIndex: 2
+      - notExists:
+          path: spec.rules[1].filters[1]
+        documentIndex: 2
+
+  - it: should use custom public and plain paths
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.publicPaths:
+        - /ocsp
+        - /custom
+      route.http.plainPaths:
+        - /plain
+    asserts:
+      - equal:
+          path: spec.rules[0].matches
+          value:
+            - path: {type: PathPrefix, value: /ocsp}
+            - path: {type: PathPrefix, value: /custom}
+        documentIndex: 1
+      - equal:
+          path: spec.rules[0].matches
+          value:
+            - path: {type: PathPrefix, value: /plain}
+        documentIndex: 2
+
+  - it: should fail when a path is both public and plain
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.http.plainPaths:
+        - /krls
+        - /crls
+    asserts:
+      - failedTemplate:
+          errorMessage: path /crls cannot be in both route.publicPaths and route.http.plainPaths
+
+  - it: should not render the public route when publicPaths is empty
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.publicPaths: []
+    asserts:
+      - hasDocuments:
+          count: 2
+      - equal:
+          path: metadata.name
+          value: stream
+        documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: stream-http
+        documentIndex: 1
+
+  - it: should not render the http route without route.http.parentRefs
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.http.parentRefs: []
+    asserts:
+      - hasDocuments:
+          count: 2
+      - equal:
+          path: metadata.name
+          value: stream
+        documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: stream-public
+        documentIndex: 1
+
+  - it: should use route.path on the protectable route
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      route.path: /app
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.rules[0].matches[0].path.value
+          value: /app
+
+  - it: should render route, common labels and annotations on every route
+    template: httproute.yml
+    values:
+      - ./values/route.yaml
+    set:
+      commonLabels:
+        team: pki
+      commonAnnotations:
+        common: "yes"
+      route.annotations:
+        route: "yes"
+    asserts:
+      - equal:
+          path: metadata.labels.team
+          value: pki
+      - equal:
+          path: metadata.labels["app.kubernetes.io/instance"]
+          value: stream
+      - equal:
+          path: metadata.annotations
+          value:
+            route: "yes"
+            common: "yes"
+
+  - it: should add route hostnames to the Stream allowed hosts
+    template: deployment.yml
+    values:
+      - ./values/route.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: HOSTS_ALLOWED.0
+            value: stream.example.com
