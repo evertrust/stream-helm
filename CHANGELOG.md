@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.6](https://github.com/evertrust/stream-helm/compare/v2.3.5...v2.3.6) (2026-11-24)
+
+
+### Bug Fixes
+
+* backport Gateway API HTTPRoute support ([#174](https://github.com/evertrust/stream-helm/issues/174)) ([#176](https://github.com/evertrust/stream-helm/issues/176)) ([c2a1ba1](https://github.com/evertrust/stream-helm/commit/c2a1ba18b0208770e9d0b8af868ed644ce777453))
+
 ## [2.3.5](https://github.com/evertrust/stream-helm/compare/v2.3.4...v2.3.5) (2026-11-18)
 
 
