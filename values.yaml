@@ -397,6 +397,91 @@ ingress:
   ##             name: http
   ##
   extraRules: []
+## Gateway API HTTPRoute configuration
+## @ref https://gateway-api.sigs.k8s.io/api-types/httproute/
+##
+## Route contract (names are stable, platforms target them with policies):
+##   <fullname>         Protectable. The whole application over HTTPS (PathPrefix route.path),
+##                      with route.filters.
+##   <fullname>-http    Protectable. Only rendered when route.http.parentRefs is set. Serves
+##                      route.http.plainPaths over plain HTTP without redirect, then either
+##                      redirects everything else to HTTPS (route.http.redirect: true) or serves
+##                      the whole application over plain HTTP with route.filters.
+##   <fullname>-public  Never protected. Only rendered when route.publicPaths is not empty.
+##                      Serves route.publicPaths on both route.parentRefs (HTTPS) and
+##                      route.http.parentRefs (HTTP), never redirected: relying parties fetch the
+##                      http:// OCSP, CRL and AIA URLs found in certificates from anywhere.
+## A platform may attach access policies (e.g. an IP allowlist) to every route except <fullname>-public.
+## Longest prefix matching makes the public and plain paths win over the "/" rules of the other routes.
+##
+route:
+  ## Set to true to enable Gateway API HTTPRoute generation
+  ##
+  enabled: false
+  ## Parent references (Gateway or ListenerSet HTTPS listeners) of the <fullname> and <fullname>-public routes.
+  ## Required when route.enabled is true. Rendered as a template.
+  ## @example
+  ## parentRefs:
+  ##   - group: gateway.networking.k8s.io
+  ##     kind: Gateway
+  ##     name: my-gateway
+  ##     namespace: gateway-system
+  ##     sectionName: https
+  ##
+  parentRefs: []
+  ## Hostnames served by every route. Required when route.enabled is true.
+  ## They are also added to the Stream allowed hosts.
+  ## @example
+  ## hostnames:
+  ##   - stream.example.com
+  ##
+  hostnames: []
+  ## Path prefix of the application rules (Gateway API PathPrefix, no wildcard)
+  ##
+  path: /
+  ## Additional annotations for every HTTPRoute
+  ##
+  annotations: {}
+  ## Extra filters applied to the application rules of the <fullname> route (and of the <fullname>-http
+  ## route when route.http.redirect is false). Never applied to public or plain paths. Rendered as a template.
+  ## @ref https://gateway-api.sigs.k8s.io/reference/spec/#httproutefilter
+  ## @example
+  ## filters:
+  ##   - type: RequestHeaderModifier
+  ##     requestHeaderModifier:
+  ##       set:
+  ##         - name: x-custom-header
+  ##           value: some-value
+  ##
+  filters: []
+  ## Unauthenticated PKI endpoints relying parties must reach from anywhere, matched as PathPrefix on the
+  ## <fullname>-public route over HTTPS and HTTP. Set to [] to not render the <fullname>-public route.
+  ## A path cannot be in both route.publicPaths and route.http.plainPaths.
+  ##
+  publicPaths:
+    - /ocsp
+    - /crls
+    - /aias
+  http:
+    ## Parent references (HTTP listeners) of the <fullname>-http route, also added to the <fullname>-public
+    ## route. Leave empty to not serve plain HTTP at all. Rendered as a template.
+    ## @example
+    ## parentRefs:
+    ##   - name: my-gateway
+    ##     namespace: gateway-system
+    ##     sectionName: http
+    ##
+    parentRefs: []
+    ## Redirect the rest of the plain HTTP traffic to HTTPS with a 301. When false, the application is
+    ## served over plain HTTP on the <fullname>-http route, with route.filters.
+    ##
+    redirect: true
+    ## Paths served over plain HTTP without redirect on the protectable <fullname>-http route
+    ## (matched as PathPrefix, without route.filters).
+    ##
+    plainPaths:
+      - /krls
+      - /tsa
 ## Prometheus monitor configuration
 monitoring:
   ## Enable the creation of a ServiceMonitor object for Stream if the cluster has the monitoring.coreos.com/v1 capability
@@ -434,7 +519,7 @@ initialAdminHashPassword:
   ## Existing secret key where the initial admin password is stored
   secretKey: ""
 ## Additional allowed hosts that are whitelisted to access the Stream UI.
-## Configured ingresses will automatically be added to the list, this should
+## Configured ingresses and routes will automatically be added to the list, this should
 ## only be used when port forwarding or when an ingress is created manually.
 ## @example
 ## allowedHosts:
